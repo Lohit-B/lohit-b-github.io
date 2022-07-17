@@ -1,6 +1,7 @@
 const margin = ({top: 16, right: 6, bottom: 6, left: 0})
 const chart_capacity = 12;
-const width = 600, barHeight = 50, duration=250;
+var width = 600;
+const barHeight = 50, duration=250;
 const frames = 2
 
 const x = d3.scaleLinear([0, 1], [margin.left, width - margin.right])
@@ -168,7 +169,7 @@ const labels = (graph)=>{
 
 }
 
-function bars(graph){ 
+const bars = (graph)=>{ 
     let bar = graph.append("g")
         .attr("fill-opacity", 0.8)
         .selectAll("rect");
@@ -205,10 +206,14 @@ const draw = async () => {
     let data = await fetch_data()
     document.getElementById('loading').style.display = 'none';
 
+    width = d3.select('body').node().offsetWidth;
+
     var graph = d3.select("body")
        .append("svg")
        .attr("width", width)
        .attr("height", barHeight * (chart_capacity+1));
+
+
 
     const update_bar = bars(graph)
     const update_label = labels(graph)
@@ -248,8 +253,6 @@ const draw = async () => {
         update_label(chart_capacity, data_history, transition)
         update_ticker(row[0], transition)
         update_axis(transition)
-
-
         await transition.end()
     }
 }
