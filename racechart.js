@@ -2,7 +2,7 @@ const margin = ({top: 16, right: 6, bottom: 6, left: 0})
 const chart_capacity = 12;
 var width = 600;
 const barHeight = 50, duration=250;
-const frames = 2
+const frames = 4
 
 const x = d3.scaleLinear([0, 1], [margin.left, width - margin.right])
 const y = d3.scaleBand()
